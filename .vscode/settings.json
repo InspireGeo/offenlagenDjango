@@ -1,0 +1,11 @@
+{
+    /*"totvsLanguageServer.welcomePage": false,
+*/
+    "emmet.includeLanguages": {
+         "": "html"
+    },
+    "totvsLanguageServer.welcomePage": false,
+}
+    
+
+
