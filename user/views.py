@@ -28,7 +28,7 @@ def register(request):
 
 
 
-    """ ders 214
+    """ ders 214 test
     if  request.method =="POST":
         form = RegisterForm(request.POST)
         if form.is_valid():

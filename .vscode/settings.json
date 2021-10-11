@@ -5,7 +5,26 @@
          "": "html"
     },
     "totvsLanguageServer.welcomePage": false,
+
+   
+/*
+    // Is git enabled
+    "git.enabled": true,
+
+    // Path to the git executable
+    "git.path": "C:\\path\\to\\git.exe"
+
+    // other settings
+
+   */
+   "git.allowForcePush": true,
+   "git.path": "",
+
+   "http.proxyStrictSSL":false,
+   "http.proxy":"http://proxy.rlp:8080",
+   "https_proxy":"http://proxy.rlp:8080"
+
+
 }
-    
 
 
