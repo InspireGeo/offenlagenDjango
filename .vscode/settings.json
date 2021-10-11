@@ -17,6 +17,8 @@
     // other settings
 
    */
+
+   
    "git.allowForcePush": true,
    "git.path": "",
 
