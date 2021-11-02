@@ -23,8 +23,8 @@
    "git.path": "",
 
    "http.proxyStrictSSL":false,
-   "http.proxy":"http://proxy.rlp:8080",
-   "https_proxy":"http://proxy.rlp:8080"
+   "http.proxy":"http://10.240.20.164:8080",
+   "https_proxy":"http://10.240.20.164:8080"
 
 
 }
