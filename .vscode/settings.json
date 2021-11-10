@@ -24,7 +24,8 @@
 
    "http.proxyStrictSSL":false,
    "http.proxy":"http://10.240.20.164:8080",
-   "https_proxy":"http://10.240.20.164:8080"
+"https_proxy": "http://10.240.20.164:8080",
+"python.pythonPath": ".venv/bin/python"
 
 
 }
