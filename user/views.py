@@ -60,7 +60,7 @@ def register(request):
 
 
 
-    """ ders-213
+    """ ders-2134
     form = RegisterForm()
     context = {
         "form" : form
