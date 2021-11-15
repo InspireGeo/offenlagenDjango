@@ -13,7 +13,7 @@ def index(request):
 
 def about(request):
     return render(request,"about.html")
-    
+
 @login_required(login_url = "user:login")
 def dashboard(request):
     articles = Article.objects.filter(author = request.user)
@@ -56,6 +56,7 @@ def updateArticle(request,id):
         messages.success(request,"Makale başarıyla Güncellendi")
         return redirect("article:dashboard")
     return render(request,"update.html",{"form":form})
+    
 @login_required(login_url = "user:login")
 def deleteArticle(request,id):
     article = get_object_or_404(Article,id = id)
