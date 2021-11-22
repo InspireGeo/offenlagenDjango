@@ -82,7 +82,7 @@ def loginUser(request):
 
         user = authenticate(username =username,password = password)
         if user is None:
-            messages.warning(request,"Kullanıcı Adı veya Parola HAtlı")
+            messages.warning(request,"Kullanıcı Adı veya Parola Hatalı")
             return render(request, "login.html", context)
         messages.success(request,"Başarılı giriş  Yaptınız")                    
         login(request,user)
