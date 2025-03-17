@@ -86,5 +86,5 @@ class OffenlageForm(forms.ModelForm):
     #     # UVP alanları
     #     self.uvp_fields = ['uvp_vorpruefung ','uvp','uvp_beginn', 'uvp_ende','uvp_kosten','uvp_url']
         
-    #     # Diğer alanlar (UVP dışındaki tüm alanlar)
+    #     # Diğer alanlar (UVP dışındaki tüm alanlar)   test
     #     self.non_uvp_fields = [field for field in self.fields if field not in self.uvp_fields]
