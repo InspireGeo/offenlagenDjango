@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offenlage Haritası</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Harita konteyneri için stil */
+        #map-frame {
+            border: 2px solid #007bff; /* Mavi bir çerçeve */
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Hafif bir arka plan rengi */
+            margin-top: 20px;
+            height: 450px; /* Çerçevenin yüksekliği */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #map {
+            height: 100%; /* Harita boyutu çerçevenin içine tam oturacak */
+            width: 100%;
+            border-radius: 8px; /* Harita köşeleri çerçeveyle uyumlu */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Offenlage Haritası</h1>
+
+    <!-- Harita Bölümü -->
+    <div id="map-frame">
+        <div id="map"></div>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Haritayı başlat
+    var map = L.map('map').setView([50.3563, 7.5886], 13);
+
+    // OpenStreetMap taban katmanı
+  
+
+    var basemaps = {
+
+    DOP20: L.tileLayer.wms('http://geo4.service24.rlp.de/wms/dtk50.fcgi?REQUEST=GetCapabilities&VERSION=1.3.0&SERVICE=WMS', {
+        layers: 'rp_dtk50'
+    }),
+    Topography: L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+        layers: 'TOPO-WMS'
+    }),
+
+    Places: L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+        layers: 'OSM-Overlay-WMS'
+    }),
+
+    'Topography, then places': L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+        layers: 'TOPO-WMS,OSM-Overlay-WMS'
+    })
+};
+
+L.control.layers(basemaps).addTo(map);
+
+basemaps.DOP20.addTo(map);
+    // Eğer GeoJSON verisi varsa, onu da ekleyin
+   
+</script>
+</body>
+</html>

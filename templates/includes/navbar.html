@@ -1,41 +1,47 @@
 
  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">YB Blog</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/index">Anasayfa</a>
+          <a class="nav-link active" aria-current="page" href="/index">HOME</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/about">Hakkımızda</a>
+          <a class="nav-link" href="/about">WIKI</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.geoportal.rlp.de/mapbender/frames/index.php?gui_id=Geoportal-RLP_2019&WMC=20938#"  target="_blank">OffenlagenPortal</a>
+        </li>
+
+        
       </ul>
 
       <ul class="navbar-nav ml-auto">
 {% if request.user.is_authenticated %}
+
+
+<li class="nav-item active">
+  <a class="nav-link" href="/offenlage/offenlagedashboard">Meine Offenlagen</a>
+</li>
+
+<li class="nav-item active">
+  <a class="nav-link" href="/user/logout">Abmelden</a>
+</li>
 <li class="nav-item active">
   <a class="nav-link">Willkommen, {{request.user.username}}</a></li>
-<li class="nav-item active">
-  <a class="nav-link" href="/article/dashboard">Kontrol Paneli</a>
-</li>
-<li class="nav-item active">
-  <a class="nav-link" href="/user/logout">Çıkış Yap</a>
-</li>
 {% else %}
 <li class="nav-item active">
-  <a class="nav-link" href="/user/login">Giriş Yap</a>
+  <a class="nav-link" href="/user/login">Anmelden</a>
+</li>
+<li class="nav-item active">
+  <a class="nav-link" href="/user/register">Registrieren</a>
 </li>
 {% endif %}
 
      
        
-        <li class="nav-item active">
-          <a class="nav-link" href="/user/register">Kayıt Ol</a>
-        </li>
+        
    
         
 

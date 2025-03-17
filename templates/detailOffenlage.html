@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offenlage Detail</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Harita konteyneri için stil */
+        #map-frame {
+            border: 2px solid #007bff; /* Mavi bir çerçeve */
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Hafif bir arka plan rengi */
+            margin-top: 20px;
+            height: 450px; /* Çerçevenin yüksekliği */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #map {
+            height: 100%; /* Harita boyutu çerçevenin içine tam oturacak */
+            width: 100%;
+            border-radius: 8px; /* Harita köşeleri çerçeveyle uyumlu */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Offenlage Detail</h1>
+
+    <!-- Harita Bölümü -->
+    <div id="map-frame">
+        <div id="map"></div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Offenlage details section -->
+        <div class="col-lg-8">
+            <offenlage>
+                <!-- Offenlage header -->
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ offenlage.title }}</h1>
+                    <div class="text-muted fst-italic mb-2">Posted on {{ offenlage.created }}</div>
+                </header>
+
+                <!-- Offenlage details -->
+                <div class="mb-3">
+                    <strong>Name:</strong> {{ offenlage.name }}
+                </div>
+                <div class="mb-3">
+                    <strong>Owner:</strong> {{ offenlage.owned_by_user }}
+                </div>
+                <div class="mb-3">
+                    <strong>Offenlage Beginn:</strong> {{ offenlage.offenlage_beginn }}
+                </div>
+                <div class="mb-3">
+                    <strong>Offenlage Ende:</strong> {{ offenlage.offenlage_ende }}
+                </div>
+                <div class="mb-3">
+                    <strong>Offenlage URL:</strong> 
+                    <a href="{{ offenlage.offenlage_url }}" target="_blank">{{ offenlage.offenlage_url }}</a>
+                </div>
+                <div class="mb-3">
+                    <strong>Kontakt:</strong> {{ offenlage.kontakt }}
+                </div>
+                <div class="mb-3">
+                    <strong>Notiz:</strong> {{ offenlage.notiz }}
+                </div>
+                <div class="mb-3">
+                    <strong>Stadt:</strong> {{ offenlage.stadt }}
+                </div>
+                <div class="mb-3">
+                    <strong>Planart:</strong> {{ offenlage.get_typ_planart_display }}
+                </div>
+                <div class="mb-3">
+                    <strong>Uvp:</strong> {{ offenlage.uvp }}
+                </div>
+                <div class="mb-3">
+                    <strong>Uvp Kosten:</strong> {{ offenlage.uvp_kosten }}
+                </div>
+                <div class="mb-3">
+                    <strong>Uvp URL:</strong> 
+                    <a href="{{ offenlage.uvp_url }}" target="_blank">{{ offenlage.uvp_url }}</a>
+                </div>
+
+                <!-- Offenlage Metadata -->
+                <div class="text-muted fst-italic mb-2">Last Changed: {{ offenlage.changed }}</div>
+                <div class="text-muted fst-italic mb-2">Offenlage ID: {{ offenlage.id }}</div>
+            </offenlage>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Haritayı başlat
+    var map = L.map('map').setView([50.3563, 7.5886], 13);
+
+    // OpenStreetMap taban katmanı
+  
+
+    var basemaps = {
+
+    KarteRLP: L.tileLayer.wms('http://geo4.service24.rlp.de/wms/dtk50.fcgi?', {
+        layers: 'rp_dtk50'
+    }),
+    wms_rp_dop20: L.tileLayer.wms('https://geo4.service24.rlp.de/wms/rp_dop20.fcgi?', {
+        layers: 'wms_rp_dop20'
+    }),
+
+    Places: L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+        layers: 'OSM-Overlay-WMS'
+    }),
+
+    'Topography, then places': L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+        layers: 'TOPO-WMS,OSM-Overlay-WMS'
+    })
+};
+
+L.control.layers(basemaps).addTo(map);
+
+basemaps.KarteRLP.addTo(map);
+    // Eğer GeoJSON verisi varsa, onu da ekleyin
+    var geojson = {{ offenlage.the_geom.geojson|safe }};
+    
+    if (geojson) {
+        var offenlageLayer = L.geoJSON(geojson).addTo(map);
+        map.fitBounds(offenlageLayer.getBounds());  // Geometrinin tümünü gösterecek şekilde zoom yap
+    } else {
+        console.error('GeoJSON verisi geçersiz veya eksik');
+    }
+    var drawnItems = new L.FeatureGroup().addTo(map);
+    var drawControl = new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems
+        }
+    });
+    map.addControl(drawControl);
+    
+
+</script>
+</body>
+</html>

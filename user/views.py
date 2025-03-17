@@ -18,7 +18,7 @@ def register(request):
         newUser.save()
 
         login(request,newUser)
-        messages.success(request, 'Başarı ile Kayıt OLdunuz')
+        messages.success(request, 'BSie haben sich erfolgreich registriert')
         return redirect("index")
     context = {
             "form" : form
@@ -82,9 +82,9 @@ def loginUser(request):
 
         user = authenticate(username =username,password = password)
         if user is None:
-            messages.warning(request,"Kullanıcı Adı veya Parola Hatalı")
+            messages.warning(request,"Benutzername oder Passwort ist falsch")
             return render(request, "login.html", context)
-        messages.success(request,"Başarılı giriş  Yaptınız")                    
+        messages.success(request,"Sie haben sich erfolgreich angemeldet")                    
         login(request,user)
         return redirect("index")
     return render (request,"login.html",context)
@@ -95,5 +95,5 @@ def loginUser(request):
     return render(request, "login.html")
 def logoutUser(request):
     logout(request)
-    messages.success(request,"Başarıyla Çıkış Yaptınız")
+    messages.success(request,"Sie haben sich erfolgreich abgemeldet")
     return redirect("index")

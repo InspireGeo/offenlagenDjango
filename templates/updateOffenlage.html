@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% load crispy_forms_tags %}
+    {% load leaflet_tags %} 
+    {% leaflet_js plugins="forms" %}
+    {% leaflet_css plugins="forms" %}
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3 style="text-align: center;">Update Offenlage</h3>
+            <hr>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <br>
+                <button type="submit" class="btn btn-danger">Update Offenlage</button>
+            </form>
+        </div>
+    </div>
+
+    
+{% endblock body %}

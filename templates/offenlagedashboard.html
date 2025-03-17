@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load render_table from django_tables2 %}
+
+{% block body %}
+<h3>OFFENLAGEN ADMINISTRATIONSPANEL</h3>
+<hr>
+
+<div class="d-flex justify-content-between mb-3">
+    <a class="btn btn-danger" href="/offenlage/addoffenlage">Add Offenlage</a>
+    <form method="get" class="form-inline">
+        {{ form.search }}  <!-- Tek arama alanı -->
+        <button type="submit" class="btn btn-primary ml-2">Suchen</button>
+    </form>
+</div>
+
+{% if table %}
+    {% render_table table %}
+{% else %}
+    <div class="alert alert-danger">Es konnten keine Offenlagen gefunden werden</div>
+{% endif %}
+{% endblock %}

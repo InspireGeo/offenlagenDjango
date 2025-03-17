@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="container">
+        <h2>Bestätigung zum Löschen der Offenlage</h2>
+        <p>Sind Sie sicher, dass Sie diese Offenlage löschen möchten: <strong>{{ offenlage.name }}</strong>?</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Ja, löschen</button>
+            <a href="{% url 'offenlage:offenlagedashboard' %}" class="btn btn-secondary">Nein, zurück</a>
+        </form>
+    </div>
+{% endblock %}

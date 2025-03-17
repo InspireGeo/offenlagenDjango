@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "article",
+    'django.contrib.gis',
+    "offenlage",
     "user",
-     'crispy_forms',
+    'crispy_forms',
+    'django_tables2',
+    'leaflet',
+ 
 ]    
 
 MIDDLEWARE = [
@@ -51,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True  # Dikkat: bu ayar, tüm kaynaklardan erişime izin verir.
 ROOT_URLCONF = 'blog.urls'
 
 TEMPLATES = [
@@ -76,14 +80,25 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     'default': {
+     'ENGINE': 'django.contrib.gis.db.backends.postgis',
+         'NAME': 'testgis',
+         'USER':'postgres',
+         'PASSWORD' : 'postgres',
+         'HOST' : 'localhost',
+         'PORT' : '5432'
+ }}
 
 
+# 'ENGINE': 'django.db.backends.postgresql',
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -106,9 +121,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'tr'
+LANGUAGE_CODE = 'de-de'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 
@@ -128,3 +143,64 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+
+
+
+
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (50.3563, 7.5886),
+    'DEFAULT_ZOOM': 10,
+    'SCALE': 'metric',
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+    
+    'TILES': [
+        # OpenStreetMap Base Layer
+        ('OpenStreetMap', 
+         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+         {
+             'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+             'maxZoom': 18,
+         }),
+        # WMS Layer (RLP WMS)
+        # ('RLP WMS', 
+        #  'https://geo4.service24.rlp.de/wms/rp_dop20.fcgi?/{z}/{x}/{y}.png',
+        #  {
+        #      'layers': 'wms_rp_dop20',
+        #      'format': 'image/png',
+        #      'transparent': True,
+        #      'attribution': 'RLP Geoportal WMS',
+        #      'maxZoom': 18,
+        #      'minZoom': 3,
+        #      'CRS': 'EPSG:3857',
+        #  })
+    ],
+    'CRS': 'EPSG:3857',  # Harita CRS'sini belirleme
+    'DRAW': {
+        'polyline': True,
+        'polygon': True,
+        'circle': True,
+        'rectangle': True,
+        'marker': True,
+        'circlemarker': False,
+    },
+    'EDIT': {
+        'featureGroup': True,
+    },
+    # 'PLUGINS': {
+    #     'forms': {
+    #         'auto-include': True
+    #     }
+    # }
+}
+
+
+
+
+
+DATE_FORMAT = ( ( 'Y-m-d' ))
+DATE_INPUT_FORMATS = ( ('%Y-%m-%d'),)
+DATETIME_FORMAT = (( 'Y-m-d H:i' ))
+DATETIME_INPUT_FORMATS = (('%Y-%m-%d %H:%i'),)
